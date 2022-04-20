@@ -9,6 +9,8 @@ resource "aws_eks_cluster" "cluster" {
   }
 
   depends_on = [
-    
+    aws_security_group_rule.inbound_22,
+    aws_security_group_rule.inbound_443,
+    aws_iam_role_policy_attachment.cluster_AmazonEKSClusterPolicy,
   ]
 }

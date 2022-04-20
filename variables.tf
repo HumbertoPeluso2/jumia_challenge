@@ -1,6 +1,6 @@
 variable "cluster_name" {
   type        = string
-  default     = "jumia_cluster"
+  default     = "jumia-luster"
   description = "Name of the EKS cluster"
 }
 
@@ -55,11 +55,24 @@ variable "node_groups" {
   description = "Map for node groups creation."
   type        = any
   default = {
-    pvcy = {
+    jumia = {
       desired_capacity = 2
       max_capacity     = 2
       min_capacity     = 2
       instance_types   = ["t2.medium"]
     }
   }
+}
+
+#RDS
+variable "vpc_cidr_block" {
+  type    = string
+  default = "10.0.0.0/16"
+}
+
+#Key pair
+variable private_key_path {
+  type        = string
+  default     = "jumia_devops.pem"
+  description = "description"
 }

@@ -25,3 +25,19 @@ data "aws_iam_policy_document" "nodes" {
     }
   }
 }
+
+data "aws_instances" "instances" {
+  
+  instance_tags = {
+    "eks:cluster-name" = var.cluster_name
+  }
+  
+}
+
+data "aws_lb" "elb" {
+  tags = {
+    name = "jumia_lb"
+  }
+  depends_on = [module.nginx-controller]
+}
+

@@ -1,0 +1,27 @@
+---
+
+- name: "deploy nginx ingress controller" 
+  hosts: localhost
+  connection: local
+  gather_facts: false
+  
+  vars:
+
+  pre_tasks:
+    - name: "wait 60 seconds for target connection to become reachable/usable."
+      wait_for_connection:
+        timeout: 60
+
+  tasks:
+
+  - name: "Export kubeconfig path variable"
+    shell: |  
+         export KUBE_CONFIG_PATH=~/.kube/config
+
+  - name: "update kubeconfig"
+    shell: |  
+         aws eks update-kubeconfig --name jumia-luster --region eu-west-2
+    
+  - name: "create namespace jumia"
+    shell: |
+          kubectl create namespace jumia

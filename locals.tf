@@ -11,4 +11,8 @@ locals {
       min_capacity     = 1
     }, v)
   }
+
+  instance_ids  = data.aws_instances.instances.ids
+  elb_arn       = data.aws_lb.elb.arn
+
 }
