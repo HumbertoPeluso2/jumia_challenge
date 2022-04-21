@@ -48,11 +48,9 @@ environment {
       stage('Deploying App to Kubernetes') {
       steps {
         script {
-          withCredentials([$class:'AmazonWebServicesCredentialsBinding',credentialsId: 'aws-credentials']) {
-            dir('jumia/backend'){
+          dir('jumia/backend'){
             kubernetesDeploy(configs: 'deployment.yml', kubeconfigId: 'kubeconfig')
           }
-          }  
           
         }
       }
