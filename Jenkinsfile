@@ -35,11 +35,13 @@ maven 'maven'
      stage('Deploy Docker Image backend') {
        steps {
         script {
-           withCredentials([[
-            credentialsId: 'dockerhub-psswd',
-              variable: 'dockerhubpwd'
-              ]]){
-                 sh 'docker login -u humbertopeluso -p ${dockerhubpwd}'
+           withCredentials(
+             string(
+               credentialsId: '${dockerhub-psswd}',
+               variable: 'dockerhubpwd'
+             )
+           ){
+              sh 'docker login -u humbertopeluso -p ${dockerhubpwd}'
               }
           sh 'docker push humbertopeluso/jumiabackend:latest'
         }
