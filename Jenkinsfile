@@ -39,8 +39,9 @@ environment {
      stage('Deploy Docker Image backend') {
        steps {
         script {
-          docker.withRegistry('https://hub.docker.com', dockerhub-psswd)
+          docker.withRegistry('https://hub.docker.com', dockerhub-psswd){
           dockerImage.push("latest")
+          }
         }
             }
         } 
