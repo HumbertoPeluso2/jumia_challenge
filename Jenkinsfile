@@ -35,11 +35,13 @@ maven 'maven'
      stage('Deploy Docker Image backend') {
        steps {
         script {
-           withCredentials(
-             string(
-               credentialsId: '${dockerhub-psswd}',
+           withCredentials([
+             [
+               $class: 'UsernamePasswordMultiBinding',
+               credentialsId: 'dockerhub-psswd',
                variable: 'dockerhubpwd'
-             )
+             ]
+           ]
            ){
               sh 'docker login -u humbertopeluso -p ${dockerhubpwd}'
               }
