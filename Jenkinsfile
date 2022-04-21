@@ -7,7 +7,7 @@ maven 'maven'
 }
 
 environment {
-    dockerimagename = "humbertopeluso/jumiabackend"
+    dockerimagename = "humbertopeluso/jumiabackend:latest"
     dockerImage = ""
   }
 
