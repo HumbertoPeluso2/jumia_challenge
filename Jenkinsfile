@@ -49,7 +49,7 @@ environment {
       steps {
         script {
           dir('jumia/backend'){
-            kubernetesDeploy(configs: "deployment.yml", kubeconfigId: "kubeconfig")
+            kubernetesDeploy(configs: 'deployment.yml', kubeconfigId: 'kubeconfig')
           }
         }
       }
