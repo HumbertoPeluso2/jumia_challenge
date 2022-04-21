@@ -16,16 +16,24 @@ maven 'maven'
     stage ('Build backend') {
       steps {
           dir('jumia_phone_validator/validator-backend') {
-    // some block
             sh 'mvn clean install'
          }
       
       }
     }
-     stage('Deploy Docker Image backend') {
+
+    stage('Build Docker Image') {
             steps {
                 script {
-                 withCredentials([string(credentialsId: 'dockerhub-psswd', variable: 'dockerhubpwd')]) {
+                  dir('jumia_phone_validator/validator-backend')
+                  sh 'docker build -t humbertopeluso/jumiabackend:latest .'
+                }
+            }
+        }
+    stage('Deploy Docker Image backend') {
+            steps {
+                script {
+                 withCredentials([credentialsId: 'dockerhub-psswd', variable: 'dockerhubpwd']) {
                     sh 'docker login -u humbertopeluso -p ${dockerhubpwd}'
                  }  
                  sh 'docker push humbertopeluso/jumiabackend:latest'
