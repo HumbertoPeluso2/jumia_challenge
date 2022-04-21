@@ -8,12 +8,12 @@ maven 'maven'
   stages {
     stage ('checkout') {
       steps {
-          git branch: 'main', url: 'https://github.com/Jumia/DevOps-Challenge/tree/main/jumia_phone_validator'
+          git branch: 'main', url: 'https://github.com/Jumia/DevOps-Challenge'
       }
     }
     stage ('Build') {
       steps {
-          dir('/validator-backend') {
+          dir('jumia_phone_validator/validator-backend') {
     // some block
             sh 'mvn clean install'
          }
