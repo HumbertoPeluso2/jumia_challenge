@@ -5,6 +5,7 @@ tools {
 jdk 'JDK8'
 maven 'maven'
 }
+
   stages {
     stage ('checkout') {
       steps {
