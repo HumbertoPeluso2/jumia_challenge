@@ -30,7 +30,7 @@ maven 'maven'
                 }
             }
         }
-    stage('Deploy Docker Image backend') {
+    /* stage('Deploy Docker Image backend') {
             steps {
                 script {
                  withCredentials([credentialsId: 'dockerhub-psswd', variable: 'dockerhubpwd']) {
@@ -39,6 +39,6 @@ maven 'maven'
                  sh 'docker push humbertopeluso/jumiabackend:latest'
                 }
             }
-        }
+        } */
 }
 }
