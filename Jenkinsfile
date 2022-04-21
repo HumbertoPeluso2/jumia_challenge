@@ -4,6 +4,7 @@ pipeline {
 tools {
 jdk 'JDK8'
 maven 'maven'
+docker 'dockerjumia'
 }
 
   stages {
