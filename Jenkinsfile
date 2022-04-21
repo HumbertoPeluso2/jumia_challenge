@@ -4,8 +4,13 @@ pipeline {
 tools {
 jdk 'JDK8'
 maven 'maven'
-docker 'dockerjumia'
 }
+
+environment {
+    dockerimagename = "humbertopeluso/jumiabackend"
+    dockerImage = ""
+  }
+
 
   stages {
     stage ('checkout') {
@@ -27,7 +32,7 @@ docker 'dockerjumia'
       steps {
         script {
           dir('jumia_phone_validator/validator-backend'){
-            sh 'docker build -t humbertopeluso/jumiabackend:latest .'
+            dockerImage = docker.build dockerimagename
           }
         }
       }
@@ -35,11 +40,9 @@ docker 'dockerjumia'
      stage('Deploy Docker Image backend') {
        steps {
         script {
-           withCredentials([credentialsId: 'dockerhub-psswd', variable: 'dockerhubpwd']) {
-             sh 'docker login -u humbertopeluso -p ${dockerhubpwd}'
-                 }  
-             sh 'docker push humbertopeluso/jumiabackend:latest'
-                }
+          docker.withRegistry('https://hub.docker.com', dockerhub-psswd)
+          dockerImage.push("latest")
+        }
             }
         } 
 }
