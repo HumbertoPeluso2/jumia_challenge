@@ -36,7 +36,7 @@ maven 'maven'
        steps {
         script {
            withCredentials([[
-            $class: 'com.dabsquared.gitlabjenkins.connection.GitLabApiTokenImpl',
+            $class: 'org.jenkinsci.plugins.credentialsbinding.impl.BindingStep',
             credentialsId: 'dockerhub-psswd',
               variable: 'dockerhubpwd'
               ]]){
