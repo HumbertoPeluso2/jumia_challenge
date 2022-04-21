@@ -36,7 +36,7 @@ maven 'maven'
        steps {
         script {
            withCredentials([[
-            $class: 'org.jenkinsci.plugins.credentialsbinding.impl.BindingStep',
+            $class: 'org.jenkinsci.plugins.credentialsbinding.MultiBinding',
             credentialsId: 'dockerhub-psswd',
               variable: 'dockerhubpwd'
               ]]){
