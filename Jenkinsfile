@@ -6,6 +6,11 @@ jdk 'JDK8'
 maven 'maven'
 }
 
+environment {
+    dockerimagename = "humbertopeluso/jumiabackend"
+    dockerImage = ""
+  }
+
   stages {
     stage ('checkout') {
       steps {
@@ -26,8 +31,7 @@ maven 'maven'
       steps {
         script {
           dir('jumia_phone_validator/validator-backend'){
-            sh 'docker build -t humbertopeluso/jumiabackend:latest .'
-
+            dockerImage = docker.build dockerimagename
           }
         }
       }
@@ -35,17 +39,8 @@ maven 'maven'
      stage('Deploy Docker Image backend') {
        steps {
         script {
-           withCredentials([
-             [
-               $class: 'UsernamePasswordMultiBinding',
-               credentialsId: 'dockerhub-psswd',
-               variable: 'dockerhubpwd'
-             ]
-           ]
-           ){
-              sh 'docker login -u humbertopeluso -p ${dockerhubpwd}'
-              }
-          sh 'docker push humbertopeluso/jumiabackend:latest'
+          docker.withRegistry('https://hub.docker.com', dockerhub-psswd)
+          dockerImage.push("latest")
         }
             }
         } 
