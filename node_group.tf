@@ -16,6 +16,11 @@ resource "aws_eks_node_group" "node_group" {
   labels               = lookup(var.node_groups[each.key], "k8s_labels", {})
   tags                 = var.tags
 
+  remote_access {
+    ec2_ssh_key         = "jumia_devops"
+    source_security_group_ids = [aws_security_group.cluster.id]
+  }
+
   scaling_config {
     desired_size = each.value["desired_capacity"]
     max_size     = each.value["max_capacity"]

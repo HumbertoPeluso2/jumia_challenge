@@ -54,20 +54,12 @@ resource "aws_lb_target_group_attachment" "nlb-attachment-1337" {
 }
 
  resource "null_resource" "update-kubeconfig"{
-   provisioner "remote-exec" {
-     connection {
-        type        = "ssh"
-        user        = "ubuntu"
-        private_key = file(var.private_key_path)
-        host        = aws_instance.runner.public_ip
-        }
-      inline = [
-        "ansible-playbook deploy-ingress.yaml"
-      ]
-    /* working_dir = "./ingress"
-    command = "ansible-playbook deploy-ingress.yaml" */
+   provisioner "local-exec" {
+  
+    working_dir = "./ingress"
+    command = "ansible-playbook deploy-ingress.yaml" 
   }
   depends_on = [
-    aws_instance.runner
+    aws_eks_cluster.cluster
   ]
 } 
