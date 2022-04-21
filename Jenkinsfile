@@ -13,7 +13,7 @@ maven 'maven'
            userRemoteConfigs: [[credentialsId: 'c0452f03-5f21-4f68-899e-a68a4733885b', url: 'https://github.com/HumbertoPeluso2/jumia_challenge']]])
       }
     }
-    stage ('Build') {
+    stage ('Build backend') {
       steps {
           dir('jumia_phone_validator/validator-backend') {
     // some block
@@ -22,5 +22,15 @@ maven 'maven'
       
       }
     }
+     stage('Deploy Docker Image backend') {
+            steps {
+                script {
+                 withCredentials([string(credentialsId: 'dockerhub-psswd', variable: 'dockerhubpwd')]) {
+                    sh 'docker login -u humbertopeluso -p ${dockerhubpwd}'
+                 }  
+                 sh 'docker push humbertopeluso/jumiabackend:latest'
+                }
+            }
+        }
 }
 }
